@@ -10,7 +10,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default function Home() { 
      
-  const  [Sel, setSel]= useState("");  
+  const  [Sel, setSel]= useState("select your news");  
   const  [page, setPage]= useState(0);
   const  [listE, setListE]= useState([]); 
   const  [filter, setFilter]= useState(" ");
