@@ -5,55 +5,62 @@ import { useState, useEffect } from 'react';
 import fillH from '../assets/fillH.svg';
 import unfillH from '../assets/unfillH.svg'; 
 import 'bootstrap/dist/css/bootstrap.min.css';  
-
+import Link from 'next/link'; 
 
 
 export default function Home() { 
-     
   const  [Sel, setSel]= useState("select your news");  
   const  [page, setPage]= useState(0);
   const  [listE, setListE]= useState([]); 
   const  [filter, setFilter]= useState(" ");
   const  [band,setBand]= useState(false);
 
-  function showH(id){
-    if (JSON.parse(localStorage.getItem("liked")) != undefined ){ 
-    return(JSON.parse(localStorage.getItem("liked")).includes(id))
-    }else{
-      return(false)
-    }
-  }
+  function showH(i){
+      let aux;
+      let band=false;
 
+      if (JSON.parse(localStorage.getItem("liked")) != undefined ){ 
+        aux = JSON.parse(localStorage.getItem("liked"));
+        aux.map((a)=>{
+           if(a.objectID == i.objectID){band=true} 
+         })     
+         return(band);
+      }else{
+        return(false)
+      }
+  }
   
      
-  function handleLike(id){ 
+  function handleLike(i){ 
     let aux;
-    let L = [];   
-    let ind;
+    let L = [];    
     let out=[];
 
     if(localStorage.getItem("liked") != undefined){
             aux = JSON.parse(localStorage.getItem("liked"));     
-            
-            if(aux.includes(id)){
-                ind = aux.findIndex(e=>{e==id});
+            let band=false;
+            let auxIn;
+            aux.includes(i)
 
-                aux.map((e,index)=>{if(e==id){ind=index}})
-                
-                aux.map((a, index)=>{if(index!=ind){out.push(a)}})
+            aux.map((el, index)=>{
+                if (el.objectID == i.objectID){
+                  band=true;
+                  auxIn=index;
+                }
+            })
 
+            if(band){
+                aux.map((a, index)=>{if(index!=auxIn){out.push(a)}})
                 L=out;
             }else{ 
-
               L= L.concat(aux)
-              L.push((id)) 
+              L.push((i)) 
               
             }  
           }
     else{
-      L.push((id)) 
+      L.push((i)) 
     }      
-
     localStorage.setItem("liked",JSON.stringify(L))
     setBand(true);
   }
@@ -109,17 +116,26 @@ export default function Home() {
         </div> 
 
         <nav className="nav">
-          <button className={styles.button}> <a href='#' >All</a></button>
-          <button className={styles.button}> <a href='#'> My Faves </a></button>
+        <Link href="/">
+          <button className={styles.button}>
+              All
+          </button>
+          </Link> 
+          <Link href="faves">
+          <button   className={styles.button} > 
+            Faves
+          </button>
+          </Link>
+
         </nav>
         
         <div>
         <select className={styles.select} value={filter} onChange={(e)=>{onChangeSelect(e)}}>
           <option>
             Select your news
-          </option>
+          </option >
           <option >
-             Angular
+           Angular 
           </option>
           <option>
             Reactjs 
@@ -140,11 +156,11 @@ export default function Home() {
                     </a>
                    <div className={styles.like}> 
                    
-                      <a href='#' className={ !showH(i.objectID) ? styles.displayNo:null } onClick={()=>{handleLike(i.objectID)}} >
+                      <a className={ !showH(i) ? styles.displayNo:null } onClick={()=>{handleLike(i)}} >
                         <img src={fillH.src} className={styles.heart} alt="like" ></img>
                       </a>
 
-                      <a href='#'  className={ showH(i.objectID) ? styles.displayNo:null }  onClick={()=>{handleLike(i.objectID)}}>
+                      <a className={ showH(i) ? styles.displayNo:null }  onClick={()=>{handleLike(i)}}>
                         <img src={unfillH.src} className={styles.heart} alt="dislike" ></img>
                       </a>
                      

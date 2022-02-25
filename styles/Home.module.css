@@ -211,7 +211,7 @@
   font-style: normal;
 }
 .cols:hover{ 
-  opacity: 75%;
+  opacity: 0.4;
 }
 .like{
   float:right;
@@ -294,3 +294,8 @@
   .displayNo{
     display: none;
   }
+
+ .faveNav{
+  position: fixed;
+  top: 15% !important;
+ }
