@@ -291,3 +291,6 @@
       position: fixed;
       bottom: 0;
   }
+  .displayNo{
+    display: none;
+  }

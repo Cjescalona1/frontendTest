@@ -9,12 +9,56 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 export default function Home() { 
-    
-  const  [isLiked, setIsLiked]= useState(false);  
+     
   const  [Sel, setSel]= useState("");  
   const  [page, setPage]= useState(0);
   const  [listE, setListE]= useState([]); 
   const  [filter, setFilter]= useState(" ");
+  const  [band,setBand]= useState(false);
+
+  function showH(id){
+    if (JSON.parse(localStorage.getItem("liked")) != undefined ){ 
+    return(JSON.parse(localStorage.getItem("liked")).includes(id))
+    }else{
+      return(false)
+    }
+  }
+
+  
+     
+  function handleLike(id){ 
+    let aux;
+    let L = [];   
+    let ind;
+    let out=[];
+
+    if(localStorage.getItem("liked") != undefined){
+            aux = JSON.parse(localStorage.getItem("liked"));     
+            
+            if(aux.includes(id)){
+                ind = aux.findIndex(e=>{e==id});
+
+                aux.map((e,index)=>{if(e==id){ind=index}})
+                
+                aux.map((a, index)=>{if(index!=ind){out.push(a)}})
+
+                L=out;
+            }else{ 
+
+              L= L.concat(aux)
+              L.push((id)) 
+              
+            }  
+          }
+    else{
+      L.push((id)) 
+    }      
+
+    localStorage.setItem("liked",JSON.stringify(L))
+    setBand(true);
+  }
+
+
 
   function onChangeSelect(e){
     setSel(e.target.value); 
@@ -29,19 +73,24 @@ export default function Home() {
   }
 
   useEffect(()=>{
-    let aux = localStorage.getItem("filter");
+    
+    if(!band){
+     let aux = localStorage.getItem("filter");
       if (aux != undefined){  
         setFilter(aux);
         setSel(aux)
       }else{
         setFilter("");
      }  
-
-    
       let url=`https://hn.algolia.com/api/v1/search_by_date?query=${Sel}&page=${page}`;
-    callFetch(url)
-    console.log(listE);
-  },[Sel,page])
+      if(Sel!=""){
+        callFetch(url)
+       }
+    }else{
+      setBand(false)
+    }
+
+  },[Sel,page,band])
 
   return (
     <Container >
@@ -83,22 +132,21 @@ export default function Home() {
   <Container className={styles.cont} >
     <Row className={styles.rowX}>
         {listE?<>
-                {listE.map((i)=>(
-                <Col md={5} sm={10}  className={styles.cols} >
-                   <a href={i.story_url} target="_blank" > 
+                {listE.map((i, index)=>(
+                <Col md={5} sm={10}  className={styles.cols} key={index}>
+                   <a href={i.story_url} target="_blank" rel="noreferrer" > 
                     <p className={styles.created}>{i.created_at}</p>  
                      {i.story_title}
                     </a>
                    <div className={styles.like}> 
-                   {isLiked?
-                      <a href='#'>
-                        <img src={fillH.src} className={styles.heart}></img>
+                   
+                      <a href='#' className={ !showH(i.objectID) ? styles.displayNo:null } onClick={()=>{handleLike(i.objectID)}} >
+                        <img src={fillH.src} className={styles.heart} alt="like" ></img>
                       </a>
-                   :
-                      <a href='#'>
-                        <img src={unfillH.src} className={styles.heart}></img>
+
+                      <a href='#'  className={ showH(i.objectID) ? styles.displayNo:null }  onClick={()=>{handleLike(i.objectID)}}>
+                        <img src={unfillH.src} className={styles.heart} alt="dislike" ></img>
                       </a>
-                   }
                      
                    </div>
                 </Col >
