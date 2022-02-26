@@ -17,10 +17,9 @@ export default function Paginator(props){
                     pageCount={50}
                     previousLabel="<"
                     renderOnZeroPageCount={null}
-                    breakLabel="..."
-                    nextLabel=">"  
-                    previousLabel="< "
-                    renderOnZeroPageCount={null}
+                 
+                
+               
                     breakClassName={'page-item'}
                     breakLinkClassName={'page-link'}
                     containerClassName={'pagination'}
