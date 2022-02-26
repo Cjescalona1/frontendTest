@@ -3,9 +3,11 @@ import { Container, Col, Row } from 'react-bootstrap'
 import styles from '../styles/Home.module.css' 
 import { useState, useEffect } from 'react';
 import fillH from '../assets/fillH.svg';
-import unfillH from '../assets/unfillH.svg'; 
+import unfillH from '../assets/unfillH.svg';
+import clock from '../assets/clock.svg'  
 import 'bootstrap/dist/css/bootstrap.min.css';   
 import Link from 'next/link'; 
+import ReactTimeAgo from 'react-time-ago';
 
 
 export default function Faves(){
@@ -109,7 +111,7 @@ export default function Faves(){
                   {listE.map((i, index)=>(
                   <Col md={5} sm={10}  className={styles.cols} key={index}>
                      <a href={i.story_url} target="_blank" rel="noreferrer" > 
-                      <p className={styles.created}>{i.created_at}</p>  
+                     <p className={styles.created}><img src={clock.src}></img> <ReactTimeAgo date={i.created_at} locale="en-US"/></p>  
                        {i.story_title}
                       </a>
                      <div className={styles.like}> 

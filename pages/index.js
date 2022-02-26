@@ -6,9 +6,14 @@ import fillH from '../assets/fillH.svg';
 import unfillH from '../assets/unfillH.svg'; 
 import clock from '../assets/clock.svg'
 import 'bootstrap/dist/css/bootstrap.min.css';  
-import Link from 'next/link';  
-import ReactPaginate from 'react-paginate';
-import Paginator from '@components/paginator';
+import Link from 'next/link';   
+import Paginator from '@components/paginator'; 
+import TimeAgo from 'javascript-time-ago'
+import ReactTimeAgo from 'react-time-ago'
+import en from 'javascript-time-ago/locale/en.json' 
+
+TimeAgo.addDefaultLocale(en)
+TimeAgo.addLocale(en)
 
 export default function Home() { 
   const  [Sel, setSel]= useState("select your news");  
@@ -159,7 +164,7 @@ export default function Home() {
                 {listE.map((i, index)=>(
                 <Col md={5} sm={10}  className={styles.cols} key={index}>
                    <a href={i.story_url} target="_blank" rel="noreferrer" > 
-                    <p className={styles.created}><img src={clock.src}></img> {i.created_at}</p>  
+                    <p className={styles.created}><img src={clock.src}></img> <ReactTimeAgo date={i.created_at} locale="en-US"/></p>  
                      {i.story_title}
                     </a> 
                    <div className={styles.like}> 
