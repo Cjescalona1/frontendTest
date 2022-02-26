@@ -21,4 +21,6 @@ a {
   box-sizing: border-box;
 }
 
-
+#__next > div > main{
+  padding-top: 90px;
+}

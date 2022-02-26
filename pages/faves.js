@@ -8,11 +8,17 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Link from 'next/link'; 
 
 
-
 export default function Faves(){
     const [listE, setListE] = useState(""); 
     const [band, setBand] = useState(false);
-
+    let path;
+    if (typeof window !== 'undefined') {
+     path = window.location.pathname;
+    }
+    else{
+     path='/faves'   
+    }
+ 
     function showH(i){
         let aux;
         let band=false;
@@ -81,20 +87,19 @@ export default function Faves(){
             HACKER NEWS
             </p>
           </div> 
-          <nav className={styles.faveNav}>
-          <Link href="/">
-            <button className={styles.button}>
-                All
-            </button>
-          </Link> 
 
+        <nav className={styles.faveNav}>
+        <Link href="/">
+          <button  className={ (path == '/')? styles.buttonAct:styles.button} >
+              All
+          </button>
+          </Link> 
           <Link href="faves">
-            <button className={styles.button}> 
-                Faves
-            </button>
-          </Link>
-        </nav>
-          
+          <button   className={ (path == '/faves')? styles.buttonAct:styles.button} > 
+            Faves
+          </button>
+          </Link> 
+        </nav> 
           <div>
           
           </div> 
@@ -125,10 +130,6 @@ export default function Faves(){
           <> </> }
       </Row>
     </Container>
-  
-        <div className={styles.pagi}>
-          paginator
-        </div> 
         </main>
       </Container>
     )

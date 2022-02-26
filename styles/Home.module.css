@@ -164,7 +164,7 @@
   width: 98px;
   height: 31px;
   border-radius: 2px;
-  border: solid 1px #1797ff;
+  border: solid 1px  #d6d6d6;
   font-family: Roboto;
   font-size: 16px;
   font-weight: 700;
@@ -177,6 +177,23 @@
 }
 .button>a:active{
   color: #1797ff;
+}
+.buttonAct{
+  color: #1797ff;
+  width: 98px;
+  height: 31px;
+  border-radius: 2px;
+  border: solid 2px #1797ff;
+  font-family: Roboto;
+  font-size: 16px;
+  font-weight: 700;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.75;
+  letter-spacing: normal;
+  text-align: center;
+  
+
 }
 
 .select{
@@ -228,7 +245,15 @@
 }
 
 
+@media (min-width: 1250px) {
+  .pagi{  
+    padding: 1% 40% !important;
+  }
+}
 @media (max-width: 1250px) {
+  .pagi{  
+    padding: 1% 35% !important;
+  }
   .select{
     right: 0 !important;
     margin-top: 20px;
@@ -256,8 +281,7 @@
     display: flex;
     justify-content: space-evenly;
   }
-  }
-@media (max-width: 1000px) {
+
   .title{
     font-size: 28px;
     line-height: 28px;
@@ -273,7 +297,22 @@
   .select{
     margin: 15px;
   }
-  
+
+  .pagi{  
+    padding: 1% 40%;
+  }
+  }
+@media (max-width:900px) {
+  .pagi{  
+    padding: 1% 20% !important;
+  }
+}
+
+@media (max-width:600px) {
+  .pagi{  
+    
+    padding: 1% 15% !important;
+  }
 }
 
   .b{border: #1797ff solid 1px;}
@@ -283,7 +322,9 @@
     margin-bottom: 1em;
   } 
   
-  .pagi{ color: #0070f3;
+  .pagi{  
+    padding: 1% 30%;
+      color: #0070f3;
       text-align: center;
       height: 5em;
       width: 100%;
@@ -296,6 +337,7 @@
   }
 
  .faveNav{
-  position: fixed;
+  position: absolute;
   top: 15% !important;
+  
  }

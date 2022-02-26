@@ -4,9 +4,11 @@ import styles from '../styles/Home.module.css'
 import { useState, useEffect } from 'react';
 import fillH from '../assets/fillH.svg';
 import unfillH from '../assets/unfillH.svg'; 
+import clock from '../assets/clock.svg'
 import 'bootstrap/dist/css/bootstrap.min.css';  
-import Link from 'next/link'; 
-
+import Link from 'next/link';  
+import ReactPaginate from 'react-paginate';
+import Paginator from '@components/paginator';
 
 export default function Home() { 
   const  [Sel, setSel]= useState("select your news");  
@@ -14,7 +16,13 @@ export default function Home() {
   const  [listE, setListE]= useState([]); 
   const  [filter, setFilter]= useState(" ");
   const  [band,setBand]= useState(false);
-
+  let path;
+  if (typeof window !== 'undefined') {
+   path = window.location.pathname;
+  }
+  else{
+   path = '/';
+  }
   function showH(i){
       let aux;
       let band=false;
@@ -115,18 +123,18 @@ export default function Home() {
           </p>
         </div> 
 
-        <nav className="nav">
+    
+        <nav className={styles.Nav}>
         <Link href="/">
-          <button className={styles.button}>
+          <button  className={ (path == '/')? styles.buttonAct:styles.button} >
               All
           </button>
           </Link> 
           <Link href="faves">
-          <button   className={styles.button} > 
+          <button   className={ (path == '/faves')? styles.buttonAct:styles.button} > 
             Faves
           </button>
-          </Link>
-
+          </Link> 
         </nav>
         
         <div>
@@ -151,9 +159,9 @@ export default function Home() {
                 {listE.map((i, index)=>(
                 <Col md={5} sm={10}  className={styles.cols} key={index}>
                    <a href={i.story_url} target="_blank" rel="noreferrer" > 
-                    <p className={styles.created}>{i.created_at}</p>  
+                    <p className={styles.created}><img src={clock.src}></img> {i.created_at}</p>  
                      {i.story_title}
-                    </a>
+                    </a> 
                    <div className={styles.like}> 
                    
                       <a className={ !showH(i) ? styles.displayNo:null } onClick={()=>{handleLike(i)}} >
@@ -174,7 +182,7 @@ export default function Home() {
   </Container>
 
       <div className={styles.pagi}>
-        paginator
+            <Paginator handle={setPage}></Paginator>      
       </div> 
       </main>
     </Container>
