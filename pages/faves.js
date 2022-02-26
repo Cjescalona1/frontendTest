@@ -91,12 +91,12 @@ export default function Faves(){
           </div> 
 
         <nav className={styles.faveNav}>
-        <Link href="/">
+        <Link href="/" passHref>
           <button  className={ (path == '/')? styles.buttonAct:styles.button} >
               All
           </button>
           </Link> 
-          <Link href="faves">
+          <Link href="faves" passHref>
           <button   className={ (path == '/faves')? styles.buttonAct:styles.button} > 
             Faves
           </button>
@@ -111,7 +111,7 @@ export default function Faves(){
                   {listE.map((i, index)=>(
                   <Col md={5} sm={10}  className={styles.cols} key={index}>
                      <a href={i.story_url} target="_blank" rel="noreferrer" > 
-                     <p className={styles.created}><img src={clock.src}></img> <ReactTimeAgo date={i.created_at} locale="en-US"/></p>  
+                     <p className={styles.created}><img src={clock.src} alt="clock"></img> <ReactTimeAgo date={i.created_at} locale="en-US"/></p>  
                        {i.story_title}
                       </a>
                      <div className={styles.like}> 
