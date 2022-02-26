@@ -361,5 +361,7 @@
 .pagi{
   padding: 5% !important;
 }
-    
+    .faveNav{
+      top: 20% !important;
+    }
   }
