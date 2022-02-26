@@ -348,15 +348,14 @@
     .like{
     padding: 3em;
     top: -2em;
-    left: 25px;
+    left: 30px !important;
     width: 3em;
-    position: relative;
-    left: 20px;   
+    position: relative; 
   }
 
 .created{
    font-size: smaller;
-   margin: -0.5em 0 0 0;
+   margin: -1.5em 0 0 0;
    padding: 0;
 }
     
